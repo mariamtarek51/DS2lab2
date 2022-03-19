@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 class Node {
     String data;
     Node parent;
@@ -135,20 +137,60 @@ public class Red_Black_Trees {
         root.color = 0;
     }
     Node insertnode(Node n,String data) {
-        Node insertedNode = new Node(data ,1);
+        Node node = new Node(data,1);
+        node.parent = null;
 
+
+        Node y =null;
+        while (n != null) {
+            System.out.print("jjj");
+            y = n;
+            String biggerStr =maxStr(n.data,node.data);
+            if(biggerStr==n.data){ //root is greater
+                n = n.left;
+            } else {
+                n= n.right;
+            }
+        }
+
+        node.parent = y;
+
+        if (y == null) {
+            root = node;
+
+        }
+        else if(maxStr(node.data,y.data)==y.data){
+            y.left = node;
+        } else {
+            y.right = node;
+        }
+
+        if (node.parent == null) {
+            node.color = 0;
+            return null;
+        }
+
+        if (node.parent.parent == null) {
+            return null;
+        }
+/*
+        //Node insertedNode = new Node(data ,1);
+       System.out.println("iam in nser");
         if(n==null) { //in case root is empty
      //the new node will be inserted as the root
-            insertedNode.color=0;
-            return (insertedNode); //black root
+            System.out.print("jjajaja");
+            //insertedNode.color=0;
+            return (new Node(data ,0)); //black root
         }
         String biggerStr =maxStr(n.data,data);
         if(biggerStr==n.data) {
 
             n.left=insertnode(n.left,data);
+            n.left.color=1;
         }else if (biggerStr==data) {
 
             n.right=insertnode(n.right,data);
+            n.right.color=1;
 
         }else {
             return n;
@@ -161,13 +203,63 @@ public class Red_Black_Trees {
         if (insertedNode.parent.parent == null) {
             return;
         }*/
+        System.out.println("hvhblk00");
+        InsertPreparation(node);
 
-        InsertPreparation(n);
-
-
-        //System.out.println(n.data);
+        System.out.println("hvhblk" +  n);
+        System.out.println(node.data);
         return n;
     }
-}
+    // Preorder
+    private void preOrderHelper(Node node) {
+        if (node != null) {
+            System.out.print(node.data + " ");
+            preOrderHelper(node.left);
+            preOrderHelper(node.right);
+        }
+    }
+    private void printHelper(Node root, String indent, boolean last) {
+
+        if (root != null) {
+
+            System.out.print(indent);
+            if (last) {
+                System.out.print("R----");
+                indent += "   ";
+            } else {
+                System.out.print("L----");
+                indent += "|  ";
+            }
+
+            String sColor = root.color == 1 ? "RED" : "BLACK";
+            System.out.println(root.data + "(" + sColor + ")");
+            printHelper(root.left, indent, false);
+            printHelper(root.right, indent, true);
+        }
+    }
+    public void printTree() {
+        printHelper(this.root, "", true);
+    }
+    public Node getRoot() {
+        return this.root;
+    }
+    public static void main(String[] args) {
+       // Scanner sc= new Scanner(System.in);
+
+        Red_Black_Trees bst = new Red_Black_Trees();
+
+        bst.insertnode(bst.root,"55");
+        bst.insertnode(bst.root,"40");
+        bst.insertnode(bst.root,"65");
+        bst.insertnode(bst.root,"60");
+        bst.insertnode(bst.root,"75");
+        bst.insertnode(bst.root,"57");
+        bst.printTree();
+        System.out.println(bst.root);
+
+    }
+
+
+    }
 
 
