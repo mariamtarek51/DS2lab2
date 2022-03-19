@@ -143,7 +143,7 @@ public class Red_Black_Trees {
 
         Node y =null;
         while (n != null) {
-            System.out.print("jjj");
+            //System.out.print("jjj");
             y = n;
             String biggerStr =maxStr(n.data,node.data);
             if(biggerStr==n.data){ //root is greater
@@ -173,42 +173,11 @@ public class Red_Black_Trees {
         if (node.parent.parent == null) {
             return null;
         }
-/*
-        //Node insertedNode = new Node(data ,1);
-       System.out.println("iam in nser");
-        if(n==null) { //in case root is empty
-     //the new node will be inserted as the root
-            System.out.print("jjajaja");
-            //insertedNode.color=0;
-            return (new Node(data ,0)); //black root
-        }
-        String biggerStr =maxStr(n.data,data);
-        if(biggerStr==n.data) {
-
-            n.left=insertnode(n.left,data);
-            n.left.color=1;
-        }else if (biggerStr==data) {
-
-            n.right=insertnode(n.right,data);
-            n.right.color=1;
-
-        }else {
-            return n;
-        }
-        /*if (insertedNode.parent == null) {
-            insertedNode.color = 0;
-            return ;
-        }
-
-        if (insertedNode.parent.parent == null) {
-            return;
-        }*/
-        System.out.println("hvhblk00");
-        InsertPreparation(node);
+            InsertPreparation(node);
 
         System.out.println("hvhblk" +  n);
         System.out.println(node.data);
-        return n;
+        return node;
     }
     // Preorder
     private void preOrderHelper(Node node) {
@@ -240,14 +209,23 @@ public class Red_Black_Trees {
     public void printTree() {
         printHelper(this.root, "", true);
     }
-    public Node getRoot() {
-        return this.root;
+    public String getRoot() {
+        return this.root.data;
+    }
+    Boolean isEmpty(){
+        if(this.root!= null){
+            return false;
+        }
+        return true;
+    }
+    void  Clearall(){
+        this.root=null;
     }
     public static void main(String[] args) {
        // Scanner sc= new Scanner(System.in);
 
         Red_Black_Trees bst = new Red_Black_Trees();
-
+        System.out.println(bst.isEmpty());
         bst.insertnode(bst.root,"55");
         bst.insertnode(bst.root,"40");
         bst.insertnode(bst.root,"65");
@@ -255,7 +233,11 @@ public class Red_Black_Trees {
         bst.insertnode(bst.root,"75");
         bst.insertnode(bst.root,"57");
         bst.printTree();
-        System.out.println(bst.root);
+        System.out.println(bst.getRoot());
+        System.out.println("isEmpty ? " + bst.isEmpty());
+        bst.Clearall();
+        System.out.println(bst.isEmpty());
+
 
     }
 
